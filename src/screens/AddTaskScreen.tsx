@@ -24,11 +24,11 @@ export default function AddTaskScreen({ navigation }: any) {
     }
     setLoading(true);
 
-    await addTask(title, description);
+    await addTask(title, description); // waits for Promise
 
     setLoading(false);
     Toast.success("Task saved");
-    navigation.goBack();
+    navigation.goBack(); // now FlatList updates instantly
   };
 
   return (

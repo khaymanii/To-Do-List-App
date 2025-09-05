@@ -30,7 +30,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     saveTasks(tasks);
   }, [tasks]);
 
-  const addTask = (title: string, description?: string) => {
+  const addTask = async (title: string, description?: string) => {
     const newTask: Task = {
       id: uuidv4(),
       title,
@@ -38,6 +38,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
       completed: false,
     };
     setTasks((prev) => [...prev, newTask]);
+    return Promise.resolve(); // allow awaiting
   };
 
   const toggleTask = (id: string) => {
