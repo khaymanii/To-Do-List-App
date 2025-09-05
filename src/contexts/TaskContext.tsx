@@ -6,9 +6,9 @@ import { Toast } from "toastify-react-native";
 
 type TaskContextType = {
   tasks: Task[];
-  addTask: (title: string, description?: string) => void;
-  toggleTask: (id: string) => void;
-  deleteTask: (id: string) => void;
+  addTask: (title: string, description?: string) => Promise<void>;
+  toggleTask: (id: string) => Promise<void>;
+  deleteTask: (id: string) => Promise<void>;
 };
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -20,7 +20,12 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       const storedTasks = await loadTasks();
-      setTasks(storedTasks);
+      setTasks(
+        storedTasks.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+      );
     };
     fetchTasks();
   }, []);
@@ -30,18 +35,22 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     saveTasks(tasks);
   }, [tasks]);
 
+  // Add task
   const addTask = async (title: string, description?: string) => {
     const newTask: Task = {
       id: uuidv4(),
       title,
       description,
       completed: false,
+      createdAt: new Date().toISOString(),
     };
-    setTasks((prev) => [...prev, newTask]);
-    return Promise.resolve(); // allow awaiting
+    setTasks((prev) => [newTask, ...prev]);
+    Toast.success("Task added successfully");
+    return Promise.resolve();
   };
 
-  const toggleTask = (id: string) => {
+  // Toggle completion
+  const toggleTask = async (id: string) => {
     setTasks((prev) =>
       prev.map((t) => {
         if (t.id === id) {
@@ -56,10 +65,14 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
         return t;
       })
     );
+    return Promise.resolve();
   };
 
-  const deleteTask = (id: string) => {
+  // Delete task
+  const deleteTask = async (id: string) => {
     setTasks((prev) => prev.filter((t) => t.id !== id));
+    Toast.error("Task deleted successfully");
+    return Promise.resolve();
   };
 
   return (

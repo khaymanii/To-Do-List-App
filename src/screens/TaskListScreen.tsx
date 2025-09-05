@@ -5,7 +5,6 @@ import { RootStackParamList } from "../../App";
 import TaskItem from "../components/TaskItem";
 import { Ionicons } from "@expo/vector-icons";
 import { useTasks } from "../contexts/TaskContext";
-import { Toast } from "toastify-react-native";
 
 type Props = NativeStackScreenProps<RootStackParamList, "TaskList">;
 
@@ -19,11 +18,6 @@ export default function TaskListScreen({ navigation }: Props) {
       task.title.toLowerCase().includes(search.toLowerCase()) ||
       task.description?.toLowerCase().includes(search.toLowerCase())
   );
-
-  const handleDelete = (id: string) => {
-    deleteTask(id);
-    Toast.info("Task deleted");
-  };
 
   return (
     <View className="flex-1 bg-white p-4 pt-6">
@@ -46,11 +40,13 @@ export default function TaskListScreen({ navigation }: Props) {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TaskItem
+            id={item.id}
             title={item.title}
             description={item.description}
             completed={item.completed}
             onToggle={() => toggleTask(item.id)}
-            onDelete={() => handleDelete(item.id)}
+            onDelete={() => deleteTask(item.id)}
+            createdAt={item.createdAt}
           />
         )}
       />
