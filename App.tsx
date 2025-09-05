@@ -1,12 +1,23 @@
-import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
 import "./global.css";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import TaskListScreen from "./src/screens/TaskListScreen";
+import AddTaskScreen from "./src/screens/AddTaskScreen";
+
+export type RootStackParamList = {
+  TaskList: undefined;
+  AddTask: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <View>
-      <Text className="text-2xl">Open up App.tsx</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="TaskList">
+        <Stack.Screen name="TaskList" component={TaskListScreen} />
+        <Stack.Screen name="AddTask" component={AddTaskScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
