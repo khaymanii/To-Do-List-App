@@ -19,7 +19,7 @@ export default function AddTaskScreen({ navigation }: any) {
 
   const handleSave = async () => {
     if (!title.trim()) {
-      Toast.error("⚠️ Title is required");
+      Toast.error("Title is required");
       return;
     }
     setLoading(true);
@@ -27,8 +27,8 @@ export default function AddTaskScreen({ navigation }: any) {
     await addTask(title, description);
 
     setLoading(false);
-    Toast.success("✅ Task saved");
-    navigation.goBack(); // go back to TaskList
+    Toast.success("Task saved");
+    navigation.goBack();
   };
 
   return (

@@ -22,7 +22,7 @@ export default function TaskListScreen({ navigation }: Props) {
 
   const handleDelete = (id: string) => {
     deleteTask(id);
-    Toast.info("🗑️ Task deleted");
+    Toast.info("Task deleted");
   };
 
   return (

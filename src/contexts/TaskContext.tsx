@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { Task } from "../types";
 import { loadTasks, saveTasks } from "../storage/taskStorage";
 import { v4 as uuidv4 } from "uuid";
+import { Toast } from "toastify-react-native";
 
 type TaskContextType = {
   tasks: Task[];
@@ -41,7 +42,18 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
 
   const toggleTask = (id: string) => {
     setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+      prev.map((t) => {
+        if (t.id === id) {
+          const updated = { ...t, completed: !t.completed };
+          if (updated.completed) {
+            Toast.success("Task marked complete");
+          } else {
+            Toast.info("Task marked incomplete");
+          }
+          return updated;
+        }
+        return t;
+      })
     );
   };
 
