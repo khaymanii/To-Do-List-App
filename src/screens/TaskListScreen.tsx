@@ -12,12 +12,18 @@ export default function TaskListScreen({ navigation }: Props) {
   const { tasks, toggleTask, deleteTask } = useTasks();
   const [search, setSearch] = useState("");
 
-  // filter tasks by title or description
-  const filteredTasks = tasks.filter(
-    (task) =>
-      task.title.toLowerCase().includes(search.toLowerCase()) ||
-      task.description?.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredTasks = tasks.filter((task) => {
+    const query = search.toLowerCase();
+
+    // Convert createdAt to readable string for searching
+    const dateString = new Date(task.createdAt).toLocaleString().toLowerCase();
+
+    return (
+      task.title.toLowerCase().includes(query) ||
+      task.description?.toLowerCase().includes(query) ||
+      dateString.includes(query) // ✅ match against createdAt
+    );
+  });
 
   return (
     <View className="flex-1 bg-white p-4 pt-6">

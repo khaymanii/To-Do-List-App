@@ -42,7 +42,7 @@ export default function AddTaskScreen({ navigation }: any) {
         placeholder="Enter task title"
         value={title}
         onChangeText={setTitle}
-        className="border border-gray-100 rounded-lg p-3 mb-4 focus:ring-1 focus:ring-green-600"
+        className="border border-gray-100 rounded-lg p-3 mb-4 focus:ring-1 focus:ring-green-600 outline-0 focus:outline-0"
       />
 
       <Text className="text-lg mb-2">Description</Text>
@@ -51,7 +51,7 @@ export default function AddTaskScreen({ navigation }: any) {
         value={description}
         onChangeText={setDescription}
         multiline
-        className="border border-gray-100 rounded-lg p-3 mb-4 h-24 focus:ring-1 focus:ring-green-600"
+        className="border border-gray-100 rounded-lg p-3 mb-4 h-24 outline-0 focus:outline-0 focus:ring-1 focus:ring-green-600"
       />
 
       <Pressable

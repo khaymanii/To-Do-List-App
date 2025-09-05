@@ -28,7 +28,7 @@ export default function TaskItem({
         <Checkbox
           value={completed}
           onValueChange={onToggle}
-          color={completed ? "#16A34A" : undefined} // ✅ Green when checked
+          color={completed ? "#16A34A" : undefined}
           style={{ marginRight: 12 }}
         />
         <View>
