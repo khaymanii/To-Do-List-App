@@ -33,7 +33,7 @@ export default function TaskItem({
       }}
     >
       {/* Left side: checkbox + text */}
-      <View className="flex-row items-center flex-1">
+      <View className="flex-row items-center flex-1 font-poppins">
         <Checkbox
           value={completed}
           onValueChange={onToggle}
@@ -42,7 +42,7 @@ export default function TaskItem({
         />
         <View>
           <Text
-            className="text-lg font-medium"
+            className="text-lg font-poppinsMedium"
             style={{
               color: colors.text,
             }}
@@ -51,14 +51,14 @@ export default function TaskItem({
           </Text>
           {description ? (
             <Text
-              className="text-gray-500"
+              className="text-gray-500 font-poppins"
               style={{ color: colors.text, opacity: 0.7 }}
             >
               {description}
             </Text>
           ) : null}
           <Text
-            className="text-xs text-gray-400 mt-1"
+            className="text-xs text-gray-400 mt-1 font-poppins"
             style={{
               color: colors.text,
               opacity: 0.6,

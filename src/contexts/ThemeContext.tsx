@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { Appearance } from "react-native";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Theme = "light" | "dark";
 
@@ -15,30 +15,39 @@ type ThemeContextType = {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  // Default theme based on system
-  const colorScheme = Appearance.getColorScheme();
-  const [theme, setTheme] = useState<Theme>(
-    colorScheme === "dark" ? "dark" : "light"
-  );
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  const [theme, setTheme] = useState<Theme>("light");
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  // load theme on mount
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const storedTheme = await AsyncStorage.getItem("theme");
+        if (storedTheme === "light" || storedTheme === "dark") {
+          setTheme(storedTheme);
+        }
+      } catch (e) {
+        console.log("Error loading theme:", e);
+      }
+    };
+    loadTheme();
+  }, []);
+
+  // save theme whenever it changes
+  const toggleTheme = async () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    try {
+      await AsyncStorage.setItem("theme", newTheme);
+    } catch (e) {
+      console.log("Error saving theme:", e);
+    }
   };
 
-  // Define theme colors
   const colors =
     theme === "light"
-      ? {
-          background: "#ffffff", // White
-          text: "#000000", // Black
-          primary: "#16a34a", // Green-600
-        }
-      : {
-          background: "#000000", // Black
-          text: "#ffffff", // White
-          primary: "#16a34a", // Green-600
-        };
+      ? { background: "#ffffff", text: "#000000", primary: "#16A34A" }
+      : { background: "#000000", text: "#ffffff", primary: "#16A34A" };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, colors }}>
@@ -47,11 +56,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Custom hook
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
+  if (!context) throw new Error("useTheme must be used within ThemeProvider");
   return context;
 };

@@ -4,7 +4,13 @@ module.exports = {
   content: ["./App.tsx", "./src/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ["Poppins_400Regular"],
+        poppinsMedium: ["Poppins_500Medium"],
+        poppinsBold: ["Poppins_700Bold"],
+      },
+    },
   },
   plugins: [],
 };

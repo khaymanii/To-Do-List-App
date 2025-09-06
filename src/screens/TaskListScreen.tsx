@@ -33,7 +33,7 @@ export default function TaskListScreen({ navigation }: Props) {
       style={{ backgroundColor: colors.background }}
     >
       <Text
-        className="text-2xl font-bold mb-6 text-center"
+        className="text-2xl font-poppinsBold mb-6 text-center"
         style={{ color: colors.text }}
       >
         My Tasks
@@ -64,7 +64,7 @@ export default function TaskListScreen({ navigation }: Props) {
           placeholder="Search tasks..."
           value={search}
           onChangeText={setSearch}
-          className="flex-1 ml-2 text-sm border-0 focus:border-0 focus:ring-0 focus:outline-0"
+          className="flex-1 ml-2 text-sm border-0 focus:border-0 focus:ring-0 focus:outline-0 font-poppins"
           style={{
             color: colors.text,
           }}
@@ -93,7 +93,9 @@ export default function TaskListScreen({ navigation }: Props) {
         className="bg-green-600 p-3 rounded-lg mt-4"
         onPress={() => navigation.navigate("AddTask")}
       >
-        <Text className="text-white text-center font-semibold">+ Add Task</Text>
+        <Text className="text-white text-center font-poppinsBold">
+          + Add Task
+        </Text>
       </Pressable>
     </View>
   );

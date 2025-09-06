@@ -6,6 +6,14 @@ import AddTaskScreen from "./src/screens/AddTaskScreen";
 import { TaskProvider } from "./src/contexts/TaskContext";
 import ToastManager from "toastify-react-native";
 import { ThemeProvider } from "./src/contexts/ThemeContext";
+import { Text } from "react-native";
+
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
 export type RootStackParamList = {
   TaskList: undefined;
@@ -15,6 +23,24 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  // ✅ Load fonts
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null; // You can also show a loading screen here
+  }
+
+  const AppText: React.FC<React.ComponentProps<typeof Text>> = (props) => (
+    <Text
+      {...props}
+      style={[{ fontFamily: "Poppins_400Regular" }, props.style]}
+    />
+  );
+
   return (
     <ThemeProvider>
       <TaskProvider>

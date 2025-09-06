@@ -51,27 +51,31 @@ export default function AddTaskScreen({ navigation }: any) {
           color={theme === "light" ? "black" : "white"}
         />
       </Pressable>
-      <Text className={`text-2xl font-bold mb-6 text-center ${textColor}`}>
+      <Text
+        className={`text-2xl font-poppinsBold mb-6 text-center ${textColor}`}
+      >
         Add a New Task
       </Text>
 
-      <Text className={`text-lg mb-2 ${textColor}`}>Title</Text>
+      <Text className={`text-lg mb-2 font-poppins ${textColor}`}>Title</Text>
       <TextInput
         placeholder="Enter task title"
         placeholderTextColor={theme === "light" ? "#000000" : "#ffffff"}
         value={title}
         onChangeText={setTitle}
-        className={`${inputBg} ${borderColor} shadow-sm border rounded-lg p-3 mb-4 text-sm ${textColor} focus:ring-0 focus:outline-0`}
+        className={`${inputBg} ${borderColor} shadow-sm border rounded-lg p-3 mb-4 text-sm ${textColor} focus:ring-0 focus:outline-0 font-poppins`}
       />
 
-      <Text className={`text-lg mb-2 ${textColor}`}>Description</Text>
+      <Text className={`text-lg mb-2 font-poppins ${textColor}`}>
+        Description
+      </Text>
       <TextInput
         placeholder="Enter task description"
         placeholderTextColor={theme === "light" ? "#00000" : "ffffff"}
         value={description}
         onChangeText={setDescription}
         multiline
-        className={`${inputBg} ${borderColor} shadow-sm border rounded-lg p-3 mb-4 h-24 text-sm ${textColor} focus:ring-0 focus:outline-0`}
+        className={`${inputBg} ${borderColor} shadow-sm border rounded-lg p-3 mb-4 h-24 text-sm ${textColor} focus:ring-0 focus:outline-0 font-poppins`}
       />
 
       <Pressable
@@ -82,7 +86,7 @@ export default function AddTaskScreen({ navigation }: any) {
         {loading ? (
           <ActivityIndicator color="#fff" />
         ) : (
-          <Text className="text-white text-center font-semibold">
+          <Text className="text-white text-center font-poppinsBold">
             Save Task
           </Text>
         )}

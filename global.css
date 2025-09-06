@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-poppins {
+  font-family: "Poppins_400Regular";
+}
+.font-medium {
+  font-family: "Poppins_500Medium";
+}
+.font-bold {
+  font-family: "Poppins_700Bold";
+}
