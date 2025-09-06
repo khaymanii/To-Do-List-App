@@ -10,9 +10,12 @@ import {
 } from "react-native";
 import { useTasks } from "../contexts/TaskContext";
 import { Toast } from "toastify-react-native";
+import { useTheme } from "../contexts/ThemeContext";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function AddTaskScreen({ navigation }: any) {
   const { addTask } = useTasks();
+  const { theme } = useTheme();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,31 +30,48 @@ export default function AddTaskScreen({ navigation }: any) {
     setLoading(false);
     navigation.goBack();
   };
+  // Theme-aware colors
+  const backgroundColor = theme === "light" ? "bg-white" : "bg-black";
+  const textColor = theme === "light" ? "text-black" : "text-white";
+  const inputBg = theme === "light" ? "bg-white" : "bg-transparent";
+  const borderColor = theme === "light" ? "border-gray-200" : "border-white";
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : undefined}
-      className="flex-1 bg-white p-4"
+      className={`flex-1 ${backgroundColor} p-4 pt-6`}
     >
-      <Text className="text-2xl font-bold mb-4 text-center">
+      <Pressable
+        onPress={() => navigation.goBack()}
+        className="absolute top-6 left-4 z-10"
+      >
+        <Ionicons
+          name="arrow-back"
+          size={20}
+          color={theme === "light" ? "black" : "white"}
+        />
+      </Pressable>
+      <Text className={`text-2xl font-bold mb-6 text-center ${textColor}`}>
         Add a New Task
       </Text>
 
-      <Text className="text-lg mb-2">Title</Text>
+      <Text className={`text-lg mb-2 ${textColor}`}>Title</Text>
       <TextInput
         placeholder="Enter task title"
+        placeholderTextColor={theme === "light" ? "#000000" : "#ffffff"}
         value={title}
         onChangeText={setTitle}
-        className="border border-gray-100 rounded-lg p-3 mb-4 focus:ring-1 focus:ring-green-600 outline-0 focus:outline-0"
+        className={`${inputBg} ${borderColor} shadow-sm border rounded-lg p-3 mb-4 text-sm ${textColor} focus:ring-0 focus:outline-0`}
       />
 
-      <Text className="text-lg mb-2">Description</Text>
+      <Text className={`text-lg mb-2 ${textColor}`}>Description</Text>
       <TextInput
         placeholder="Enter task description"
+        placeholderTextColor={theme === "light" ? "#00000" : "ffffff"}
         value={description}
         onChangeText={setDescription}
         multiline
-        className="border border-gray-100 rounded-lg p-3 mb-4 h-24 outline-0 focus:outline-0 focus:ring-1 focus:ring-green-600"
+        className={`${inputBg} ${borderColor} shadow-sm border rounded-lg p-3 mb-4 h-24 text-sm ${textColor} focus:ring-0 focus:outline-0`}
       />
 
       <Pressable
