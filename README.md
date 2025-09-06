@@ -10,7 +10,7 @@ A Technical assessment task for AAIR Labs
 ## Install & Run
 
 1. Clone this repo
-2. `cd react-native-todo-app`
+2. `cd To-Do-List-App`
 3. `npm install` or `yarn`
 4. `npx expo start` (or `expo start`)
 5. Run on emulator or physical device using Expo Go
